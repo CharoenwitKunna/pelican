@@ -26,6 +26,7 @@ from pelican.tests.support import (
 )
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+REPO_ROOT = os.path.dirname(CURRENT_DIR)
 SAMPLES_PATH = os.path.abspath(
     os.path.join(CURRENT_DIR, os.pardir, os.pardir, "samples")
 )
@@ -301,7 +302,8 @@ class TestPelican(LoggedTestCase):
                 # Don't highlight anything.
                 # See https://rich.readthedocs.io/en/stable/highlighting.html
                 with patch("pelican.console", new=Console(highlight=False)):
-                    main(["-o", temp_dir, "pelican/tests/simple_content"])
+                    with contextlib.chdir(REPO_ROOT):
+                        main(["-o", temp_dir, "pelican/tests/simple_content"])
             self.assertIn("Processed 1 article", out.getvalue())
             self.assertEqual("", err.getvalue())
 
@@ -317,7 +319,8 @@ class TestPelican(LoggedTestCase):
                     # Don't highlight anything.
                     # See https://rich.readthedocs.io/en/stable/highlighting.html
                     with patch("pelican.console", new=Console(highlight=False)):
-                        main(["-o", temp_dir, "pelican/tests/simple_content"])
+                        with contextlib.chdir(REPO_ROOT):
+                            main(["-o", temp_dir, "pelican/tests/simple_content"])
                 self.assertIn("Processed 0 articles", out.getvalue())
                 self.assertLogCountEqual(
                     1,
