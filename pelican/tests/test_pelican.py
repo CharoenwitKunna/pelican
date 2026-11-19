@@ -26,7 +26,7 @@ from pelican.tests.support import (
 )
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-REPO_ROOT = os.path.dirname(CURRENT_DIR)
+REPO_ROOT = os.path.dirname(os.path.dirname(CURRENT_DIR))
 SAMPLES_PATH = os.path.abspath(
     os.path.join(CURRENT_DIR, os.pardir, os.pardir, "samples")
 )
